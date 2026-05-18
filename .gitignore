@@ -1,0 +1,15 @@
+# Build output
+/build/
+/dist/*.jar
+
+# NetBeans local/private files
+/nbproject/private/
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+
+# Temporary archives/backups
+*.zip
+*.rar
+*.7z
