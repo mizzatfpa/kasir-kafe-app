@@ -26,6 +26,6 @@ public class Makanan extends MenuItem {
 
     @Override
     public String getInfoTambahan() {
-        return "Pedas: " + tingkatPedas;
+        return tingkatPedas;
     }
 }

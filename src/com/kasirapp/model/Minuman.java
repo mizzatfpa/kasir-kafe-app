@@ -26,6 +26,6 @@ public class Minuman extends MenuItem {
 
     @Override
     public String getInfoTambahan() {
-        return "Ukuran: " + ukuran;
+        return ukuran;
     }
 }

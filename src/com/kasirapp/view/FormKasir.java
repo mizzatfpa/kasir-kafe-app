@@ -29,7 +29,7 @@ public class FormKasir extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormKasir.class.getName());
     private static final DecimalFormat ANGKA_FORMAT = new DecimalFormat("0.##");
-    private static final Dimension UKURAN_FORM = new Dimension(1000, 700);
+    private static final Dimension UKURAN_FORM = new Dimension(1000, 740);
     private final KasirController kasirController = new KasirController();
 
     /**
@@ -445,6 +445,7 @@ public class FormKasir extends javax.swing.JFrame {
                 return false;
             }
         });
+        aturLebarKolomTabel();
 
         tblDaftarMenu.getSelectionModel().addListSelectionListener(event -> {
             if (!event.getValueIsAdjusting()) {
@@ -469,6 +470,8 @@ public class FormKasir extends javax.swing.JFrame {
         });
         setupNavigasi();
         resetInputTransaksi();
+        txtBayar.setText("");
+        txtKembalian.setText("0");
         updatePembayaranBerdasarkanMetode();
         pack();
         setSize(UKURAN_FORM);
@@ -478,18 +481,206 @@ public class FormKasir extends javax.swing.JFrame {
     private void applyLayoutRapi() {
         setMinimumSize(UKURAN_FORM);
         setPreferredSize(UKURAN_FORM);
-        jPanel1.setPreferredSize(new Dimension(445, 235));
-        jPanel2.setPreferredSize(new Dimension(445, 235));
-        jPanel3.setPreferredSize(new Dimension(445, 245));
-        jPanel4.setPreferredSize(new Dimension(445, 245));
-        jScrollPane1.setPreferredSize(new Dimension(405, 160));
-        jScrollPane2.setPreferredSize(new Dimension(405, 160));
+        getContentPane().setPreferredSize(new Dimension(980, 680));
+
+        setUkuranKomponen(jPanel1, 455, 230);
+        setUkuranKomponen(jPanel2, 455, 230);
+        setUkuranKomponen(jPanel3, 455, 250);
+        setUkuranKomponen(jPanel4, 455, 250);
+        setUkuranKomponen(jScrollPane1, 415, 165);
+        setUkuranKomponen(jScrollPane2, 415, 165);
+        setUkuranKomponen(txtIdMenu, 210, 28);
+        setUkuranKomponen(txtNamaMenu, 270, 28);
+        setUkuranKomponen(txtJumlah, 210, 28);
+        setUkuranKomponen(txtTotal, 220, 28);
+        setUkuranKomponen(cmbMetodePembayaran, 220, 28);
+        setUkuranKomponen(txtBayar, 220, 28);
+        setUkuranKomponen(txtKembalian, 220, 28);
+        setUkuranKomponen(btnTambahKeranjang, 220, 34);
+        setUkuranKomponen(btnHapusItem, 120, 32);
+        setUkuranKomponen(btnTransaksiBaru, 140, 32);
+        setUkuranKomponen(btnBayar, 120, 32);
+
         tblDaftarMenu.setRowHeight(26);
         tblKeranjang.setRowHeight(26);
-        btnTambahKeranjang.setPreferredSize(new Dimension(220, 34));
-        btnHapusItem.setPreferredSize(new Dimension(120, 32));
-        btnTransaksiBaru.setPreferredSize(new Dimension(140, 32));
-        btnBayar.setPreferredSize(new Dimension(120, 32));
+        layoutPanelTabel(jPanel1, jScrollPane1);
+        layoutPanelTabel(jPanel2, jScrollPane2);
+        layoutPanelInputTransaksi();
+        layoutPanelPembayaran();
+        layoutKontenUtama();
+    }
+
+    private void setUkuranKomponen(javax.swing.JComponent component, int width, int height) {
+        Dimension dimension = new Dimension(width, height);
+        component.setPreferredSize(dimension);
+        component.setMinimumSize(dimension);
+    }
+
+    private void layoutPanelTabel(javax.swing.JPanel panel, javax.swing.JScrollPane scrollPane) {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                                .addContainerGap()));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                                .addContainerGap()));
+    }
+
+    private void layoutPanelInputTransaksi() {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(layout);
+
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtIdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(45, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnTambahKeranjang, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40)));
+
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(txtIdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26)
+                                .addComponent(btnTambahKeranjang, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(32, Short.MAX_VALUE)));
+    }
+
+    private void layoutPanelPembayaran() {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(layout);
+
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cmbMetodePembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(48, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(18)
+                                .addComponent(btnHapusItem, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16)
+                                .addComponent(btnTransaksiBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16)
+                                .addComponent(btnBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(13, Short.MAX_VALUE)));
+
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(16)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel4)
+                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel5)
+                                        .addComponent(cmbMetodePembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel6)
+                                        .addComponent(txtBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel7)
+                                        .addComponent(txtKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnHapusItem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnTransaksiBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(18, Short.MAX_VALUE)));
+    }
+
+    private void layoutKontenUtama() {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblJudul)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(24)
+                                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(24)
+                                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(22, Short.MAX_VALUE)));
+
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(32)
+                                .addComponent(lblJudul)
+                                .addGap(14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(38, Short.MAX_VALUE)));
+    }
+
+    private void aturLebarKolomTabel() {
+        tblDaftarMenu.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblDaftarMenu.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblDaftarMenu.getColumnModel().getColumn(1).setPreferredWidth(190);
+        tblDaftarMenu.getColumnModel().getColumn(2).setPreferredWidth(90);
+        tblDaftarMenu.getColumnModel().getColumn(3).setPreferredWidth(70);
+
+        tblKeranjang.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblKeranjang.getColumnModel().getColumn(0).setPreferredWidth(45);
+        tblKeranjang.getColumnModel().getColumn(1).setPreferredWidth(145);
+        tblKeranjang.getColumnModel().getColumn(2).setPreferredWidth(75);
+        tblKeranjang.getColumnModel().getColumn(3).setPreferredWidth(70);
+        tblKeranjang.getColumnModel().getColumn(4).setPreferredWidth(90);
     }
 
     private void setupNavigasi() {

@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class FormMenu extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormMenu.class.getName());
-    private static final Dimension UKURAN_FORM = new Dimension(1000, 700);
+    private static final Dimension UKURAN_FORM = new Dimension(1000, 740);
     private final MenuController menuController = new MenuController();
 
     /**
@@ -299,7 +299,7 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void cmbKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategoriActionPerformed
-        updatePlaceholderInfoTambahan();
+        updateLabelInfoTambahan();
     }//GEN-LAST:event_cmbKategoriActionPerformed
 
     private void txtInfoTambahanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInfoTambahanActionPerformed
@@ -323,6 +323,7 @@ public class FormMenu extends javax.swing.JFrame {
                 return false;
             }
         });
+        aturLebarKolomTabel();
         tblMenu.getSelectionModel().addListSelectionListener(event -> {
             if (!event.getValueIsAdjusting()) {
                 pilihMenuDariTabel();
@@ -338,14 +339,156 @@ public class FormMenu extends javax.swing.JFrame {
     private void applyLayoutRapi() {
         setMinimumSize(UKURAN_FORM);
         setPreferredSize(UKURAN_FORM);
-        jPanel1.setPreferredSize(new Dimension(920, 230));
-        jPanel2.setPreferredSize(new Dimension(920, 330));
-        jScrollPane2.setPreferredSize(new Dimension(880, 240));
+        getContentPane().setPreferredSize(new Dimension(980, 680));
+
+        setUkuranKomponen(jPanel1, 940, 245);
+        setUkuranKomponen(jPanel2, 940, 300);
+        setUkuranKomponen(jScrollPane2, 900, 220);
+        setUkuranKomponen(txtIdMenu, 190, 28);
+        setUkuranKomponen(txtNamaMenu, 275, 28);
+        setUkuranKomponen(cmbKategori, 120, 28);
+        setUkuranKomponen(txtInfoTambahan, 275, 28);
+        setUkuranKomponen(txtHarga, 190, 28);
+        setUkuranKomponen(txtStok, 190, 28);
+        setUkuranKomponen(btnSimpan, 95, 32);
+        setUkuranKomponen(btnUbah, 95, 32);
+        setUkuranKomponen(btnHapus, 95, 32);
+        setUkuranKomponen(btnReset, 95, 32);
+
         tblMenu.setRowHeight(26);
-        btnSimpan.setPreferredSize(new Dimension(110, 32));
-        btnUbah.setPreferredSize(new Dimension(110, 32));
-        btnHapus.setPreferredSize(new Dimension(110, 32));
-        btnReset.setPreferredSize(new Dimension(110, 32));
+        layoutPanelInputMenu();
+        layoutPanelDaftarMenu();
+        layoutKontenUtama();
+    }
+
+    private void setUkuranKomponen(javax.swing.JComponent component, int width, int height) {
+        Dimension dimension = new Dimension(width, height);
+        component.setPreferredSize(dimension);
+        component.setMinimumSize(dimension);
+    }
+
+    private void layoutPanelInputMenu() {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(layout);
+
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtIdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtInfoTambahan, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(105)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(164, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(76)
+                                .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18)
+                                .addComponent(btnUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18)
+                                .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18)
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(420, Short.MAX_VALUE)));
+
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(txtIdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5)
+                                        .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6)
+                                        .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel4)
+                                        .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel8)
+                                        .addComponent(txtInfoTambahan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(28, Short.MAX_VALUE)));
+    }
+
+    private void layoutPanelDaftarMenu() {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(layout);
+
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+                                .addContainerGap()));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                                .addContainerGap()));
+    }
+
+    private void layoutKontenUtama() {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(16, Short.MAX_VALUE)));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(32)
+                                .addComponent(jLabel1)
+                                .addGap(14)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(40, Short.MAX_VALUE)));
+    }
+
+    private void aturLebarKolomTabel() {
+        tblMenu.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblMenu.getColumnModel().getColumn(0).setPreferredWidth(55);
+        tblMenu.getColumnModel().getColumn(1).setPreferredWidth(210);
+        tblMenu.getColumnModel().getColumn(2).setPreferredWidth(120);
+        tblMenu.getColumnModel().getColumn(3).setPreferredWidth(120);
+        tblMenu.getColumnModel().getColumn(4).setPreferredWidth(90);
+        tblMenu.getColumnModel().getColumn(5).setPreferredWidth(220);
     }
 
     private void setupNavigasi() {
@@ -498,17 +641,21 @@ public class FormMenu extends javax.swing.JFrame {
         txtInfoTambahan.setText("");
         cmbKategori.setSelectedIndex(0);
         tblMenu.clearSelection();
-        updatePlaceholderInfoTambahan();
+        updateLabelInfoTambahan();
         txtNamaMenu.requestFocus();
     }
 
-    private void updatePlaceholderInfoTambahan() {
+    private void updateLabelInfoTambahan() {
         if (txtInfoTambahan == null || cmbKategori.getSelectedItem() == null) {
             return;
         }
-        txtInfoTambahan.setToolTipText("Makanan".equals(getKategoriTerpilih())
-                ? "Isi tingkat pedas, contoh: Tidak Pedas, Sedang, Pedas"
-                : "Isi ukuran minuman, contoh: Small, Medium, Large");
+        if ("Makanan".equals(getKategoriTerpilih())) {
+            jLabel8.setText("Tingkat Pedas");
+            txtInfoTambahan.setToolTipText("Contoh: Tidak Pedas, Sedang, Pedas");
+        } else {
+            jLabel8.setText("Ukuran");
+            txtInfoTambahan.setToolTipText("Contoh: Small, Medium, Large, Dingin, Panas");
+        }
     }
 
     private String getKategoriTerpilih() {

@@ -1,6 +1,5 @@
 {
     "java.project.referencedLibraries": [
-        "dist/lib/mysql-connector-j-8.0.33.jar",
-        // "C:/Users/tugas/Downloads/mysql-connector-j-8.0.33.jar"
+        "dist/lib/mysql-connector-j-8.0.33.jar"
     ]
 }

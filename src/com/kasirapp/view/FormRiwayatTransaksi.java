@@ -27,7 +27,7 @@ public class FormRiwayatTransaksi extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormRiwayatTransaksi.class.getName());
     private static final DateTimeFormatter FORMAT_TANGGAL_INPUT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private static final Dimension UKURAN_FORM = new Dimension(1000, 700);
+    private static final Dimension UKURAN_FORM = new Dimension(1000, 740);
     private final TransaksiController transaksiController = new TransaksiController();
 
     /**
@@ -273,6 +273,7 @@ public class FormRiwayatTransaksi extends javax.swing.JFrame {
                 return false;
             }
         });
+        aturLebarKolomTabel();
 
         tblDaftarTransaksi.getSelectionModel().addListSelectionListener(event -> {
             if (!event.getValueIsAdjusting()) {
@@ -288,15 +289,132 @@ public class FormRiwayatTransaksi extends javax.swing.JFrame {
     private void applyLayoutRapi() {
         setMinimumSize(UKURAN_FORM);
         setPreferredSize(UKURAN_FORM);
-        jPanel1.setPreferredSize(new Dimension(920, 165));
-        jPanel2.setPreferredSize(new Dimension(920, 185));
-        jPanel3.setPreferredSize(new Dimension(920, 185));
-        jScrollPane1.setPreferredSize(new Dimension(880, 120));
-        jScrollPane2.setPreferredSize(new Dimension(880, 120));
+        getContentPane().setPreferredSize(new Dimension(980, 680));
+
+        setUkuranKomponen(jPanel1, 940, 175);
+        setUkuranKomponen(jPanel2, 940, 180);
+        setUkuranKomponen(jPanel3, 940, 180);
+        setUkuranKomponen(jScrollPane1, 900, 115);
+        setUkuranKomponen(jScrollPane2, 900, 115);
+        setUkuranKomponen(txtKodeTransaksi, 275, 28);
+        setUkuranKomponen(txtTanggal, 140, 28);
+        setUkuranKomponen(btnCari, 95, 32);
+        setUkuranKomponen(btnTampilkanSemua, 150, 32);
+
         tblDaftarTransaksi.setRowHeight(26);
         tblDetailTransaksi.setRowHeight(26);
-        btnCari.setPreferredSize(new Dimension(120, 32));
-        btnTampilkanSemua.setPreferredSize(new Dimension(180, 32));
+        layoutPanelPencarian();
+        layoutPanelTabel(jPanel2, jScrollPane1);
+        layoutPanelTabel(jPanel3, jScrollPane2);
+        layoutKontenUtama();
+    }
+
+    private void setUkuranKomponen(javax.swing.JComponent component, int width, int height) {
+        Dimension dimension = new Dimension(width, height);
+        component.setPreferredSize(dimension);
+        component.setMinimumSize(dimension);
+    }
+
+    private void layoutPanelPencarian() {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(layout);
+
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtKodeTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(526, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(139)
+                                .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18)
+                                .addComponent(btnTampilkanSemua, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(528, Short.MAX_VALUE)));
+
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(txtKodeTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(txtTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnTampilkanSemua, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(34, Short.MAX_VALUE)));
+    }
+
+    private void layoutPanelTabel(javax.swing.JPanel panel, javax.swing.JScrollPane scrollPane) {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+                                .addContainerGap()));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                .addContainerGap()));
+    }
+
+    private void layoutKontenUtama() {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(16, Short.MAX_VALUE)));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(32)
+                                .addComponent(jLabel1)
+                                .addGap(14)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(34, Short.MAX_VALUE)));
+    }
+
+    private void aturLebarKolomTabel() {
+        tblDaftarTransaksi.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblDaftarTransaksi.getColumnModel().getColumn(0).setPreferredWidth(45);
+        tblDaftarTransaksi.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblDaftarTransaksi.getColumnModel().getColumn(2).setPreferredWidth(170);
+        tblDaftarTransaksi.getColumnModel().getColumn(3).setPreferredWidth(110);
+        tblDaftarTransaksi.getColumnModel().getColumn(4).setPreferredWidth(110);
+        tblDaftarTransaksi.getColumnModel().getColumn(5).setPreferredWidth(110);
+        tblDaftarTransaksi.getColumnModel().getColumn(6).setPreferredWidth(95);
+
+        tblDetailTransaksi.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblDetailTransaksi.getColumnModel().getColumn(0).setPreferredWidth(250);
+        tblDetailTransaksi.getColumnModel().getColumn(1).setPreferredWidth(130);
+        tblDetailTransaksi.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tblDetailTransaksi.getColumnModel().getColumn(3).setPreferredWidth(140);
     }
 
     private void setupNavigasi() {
