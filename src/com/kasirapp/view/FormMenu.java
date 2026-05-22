@@ -4,6 +4,19 @@
  */
 package com.kasirapp.view;
 
+import com.kasirapp.controller.MenuController;
+import com.kasirapp.model.Makanan;
+import com.kasirapp.model.MenuItem;
+import com.kasirapp.model.Minuman;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Izzat Fauzan
@@ -11,12 +24,16 @@ package com.kasirapp.view;
 public class FormMenu extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormMenu.class.getName());
+    private static final Dimension UKURAN_FORM = new Dimension(1000, 700);
+    private final MenuController menuController = new MenuController();
 
     /**
      * Creates new form FormMenu
      */
     public FormMenu() {
         initComponents();
+        setupForm();
+        loadDataMenu();
     }
 
     /**
@@ -28,21 +45,489 @@ public class FormMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtIdMenu = new javax.swing.JTextField();
+        txtNamaMenu = new javax.swing.JTextField();
+        cmbKategori = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtHarga = new javax.swing.JTextField();
+        txtStok = new javax.swing.JTextField();
+        btnSimpan = new javax.swing.JButton();
+        btnUbah = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtInfoTambahan = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblMenu = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuMaster = new javax.swing.JMenu();
+        menuTransaksi = new javax.swing.JMenu();
+        menuRiwayat = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Form Menu - Aplikasi Kasir");
+        setPreferredSize(new java.awt.Dimension(1000, 700));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Data Menu Kafe");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Input Menu", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+
+        jLabel2.setText("ID Menu");
+
+        jLabel3.setText("Nama Menu");
+
+        jLabel4.setText("Kategori");
+
+        txtIdMenu.setText("AUTO");
+        txtIdMenu.setEnabled(false);
+        txtIdMenu.addActionListener(this::txtIdMenuActionPerformed);
+
+        txtNamaMenu.addActionListener(this::txtNamaMenuActionPerformed);
+
+        cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbKategori.addActionListener(this::cmbKategoriActionPerformed);
+
+        jLabel5.setText("Harga");
+
+        jLabel6.setText("Stok");
+
+        txtHarga.addActionListener(this::txtHargaActionPerformed);
+
+        btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(this::btnSimpanActionPerformed);
+
+        btnUbah.setText("Ubah");
+        btnUbah.addActionListener(this::btnUbahActionPerformed);
+
+        btnHapus.setText("Hapus");
+        btnHapus.addActionListener(this::btnHapusActionPerformed);
+
+        btnReset.setText("Reset");
+        btnReset.addActionListener(this::btnResetActionPerformed);
+
+        jLabel8.setText("Keterangan");
+
+        txtInfoTambahan.addActionListener(this::txtInfoTambahanActionPerformed);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(btnSimpan)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUbah)
+                        .addGap(24, 24, 24)
+                        .addComponent(btnHapus)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReset))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtIdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(123, 123, 123)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtInfoTambahan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtIdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(txtInfoTambahan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSimpan)
+                    .addComponent(btnUbah)
+                    .addComponent(btnHapus)
+                    .addComponent(btnReset))
+                .addContainerGap())
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Daftar Menu", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+
+        tblMenu.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nama Menu", "Kategori", "Harga", "Stok"
+            }
+        ));
+        jScrollPane2.setViewportView(tblMenu);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        menuMaster.setText("Menu");
+        jMenuBar1.add(menuMaster);
+
+        menuTransaksi.setText("Transaksi");
+        jMenuBar1.add(menuTransaksi);
+
+        menuRiwayat.setText("Riwayat");
+        jMenuBar1.add(menuRiwayat);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(12, 12, 12)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtIdMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdMenuActionPerformed
+
+    private void txtNamaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamaMenuActionPerformed
+
+    private void txtHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHargaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHargaActionPerformed
+
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        simpanMenu();
+    }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
+        ubahMenu();
+    }//GEN-LAST:event_btnUbahActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        hapusMenu();
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        resetForm();
+    }//GEN-LAST:event_btnResetActionPerformed
+
+    private void cmbKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategoriActionPerformed
+        updatePlaceholderInfoTambahan();
+    }//GEN-LAST:event_cmbKategoriActionPerformed
+
+    private void txtInfoTambahanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInfoTambahanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInfoTambahanActionPerformed
+
+    private void setupForm() {
+        applyLayoutRapi();
+        txtIdMenu.setColumns(12);
+        txtNamaMenu.setColumns(24);
+        txtHarga.setColumns(14);
+        txtStok.setColumns(14);
+        txtInfoTambahan.setColumns(24);
+        cmbKategori.setModel(new DefaultComboBoxModel<>(new String[] {"Makanan", "Minuman"}));
+        tblMenu.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tblMenu.setModel(new DefaultTableModel(
+                new Object[][] {},
+                new String[] {"ID", "Nama Menu", "Kategori", "Harga", "Stok", "Keterangan"}) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+        tblMenu.getSelectionModel().addListSelectionListener(event -> {
+            if (!event.getValueIsAdjusting()) {
+                pilihMenuDariTabel();
+            }
+        });
+        setupNavigasi();
+        resetForm();
+        pack();
+        setSize(UKURAN_FORM);
+        setLocationRelativeTo(null);
+    }
+
+    private void applyLayoutRapi() {
+        setMinimumSize(UKURAN_FORM);
+        setPreferredSize(UKURAN_FORM);
+        jPanel1.setPreferredSize(new Dimension(920, 230));
+        jPanel2.setPreferredSize(new Dimension(920, 330));
+        jScrollPane2.setPreferredSize(new Dimension(880, 240));
+        tblMenu.setRowHeight(26);
+        btnSimpan.setPreferredSize(new Dimension(110, 32));
+        btnUbah.setPreferredSize(new Dimension(110, 32));
+        btnHapus.setPreferredSize(new Dimension(110, 32));
+        btnReset.setPreferredSize(new Dimension(110, 32));
+    }
+
+    private void setupNavigasi() {
+        menuMaster.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                loadDataMenu();
+            }
+        });
+        menuTransaksi.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new FormKasir().setVisible(true);
+                dispose();
+            }
+        });
+        menuRiwayat.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new FormRiwayatTransaksi().setVisible(true);
+                dispose();
+            }
+        });
+    }
+
+    private void loadDataMenu() {
+        DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
+        model.setRowCount(0);
+
+        List<MenuItem> daftarMenu = menuController.getAllMenu();
+        for (MenuItem menu : daftarMenu) {
+            model.addRow(new Object[] {
+                menu.getIdMenu(),
+                menu.getNamaMenu(),
+                toDisplayKategori(menu.getJenisMenu()),
+                menu.getHarga(),
+                menu.getStok(),
+                menu.getInfoTambahan()
+            });
+        }
+    }
+
+    private void simpanMenu() {
+        try {
+            String namaMenu = txtNamaMenu.getText();
+            double harga = Double.parseDouble(txtHarga.getText().trim());
+            int stok = Integer.parseInt(txtStok.getText().trim());
+            String infoTambahan = txtInfoTambahan.getText();
+            String kategori = getKategoriTerpilih();
+
+            boolean berhasil;
+            if ("Makanan".equals(kategori)) {
+                berhasil = menuController.tambahMakanan(namaMenu, harga, stok, infoTambahan);
+            } else {
+                berhasil = menuController.tambahMinuman(namaMenu, harga, stok, infoTambahan);
+            }
+
+            if (berhasil) {
+                JOptionPane.showMessageDialog(this, "Menu berhasil disimpan.");
+                loadDataMenu();
+                resetForm();
+            } else {
+                tampilkanError(menuController.getLastError());
+            }
+        } catch (NumberFormatException e) {
+            tampilkanError("Harga dan stok harus berupa angka.");
+        }
+    }
+
+    private void ubahMenu() {
+        try {
+            int idMenu = Integer.parseInt(txtIdMenu.getText().trim());
+            String namaMenu = txtNamaMenu.getText();
+            double harga = Double.parseDouble(txtHarga.getText().trim());
+            int stok = Integer.parseInt(txtStok.getText().trim());
+            String infoTambahan = txtInfoTambahan.getText();
+            String kategori = getKategoriTerpilih();
+
+            boolean berhasil;
+            if ("Makanan".equals(kategori)) {
+                berhasil = menuController.ubahMakanan(idMenu, namaMenu, harga, stok, infoTambahan);
+            } else {
+                berhasil = menuController.ubahMinuman(idMenu, namaMenu, harga, stok, infoTambahan);
+            }
+
+            if (berhasil) {
+                JOptionPane.showMessageDialog(this, "Menu berhasil diubah.");
+                loadDataMenu();
+                resetForm();
+            } else {
+                tampilkanError(menuController.getLastError());
+            }
+        } catch (NumberFormatException e) {
+            tampilkanError("Pilih data menu yang akan diubah, lalu pastikan harga dan stok berupa angka.");
+        }
+    }
+
+    private void hapusMenu() {
+        try {
+            int idMenu = Integer.parseInt(txtIdMenu.getText().trim());
+            int pilihan = JOptionPane.showConfirmDialog(
+                    this,
+                    "Yakin ingin menghapus menu ini?",
+                    "Konfirmasi Hapus",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (pilihan != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            if (menuController.hapusMenu(idMenu)) {
+                JOptionPane.showMessageDialog(this, "Menu berhasil dihapus.");
+                loadDataMenu();
+                resetForm();
+            } else {
+                tampilkanError(menuController.getLastError());
+            }
+        } catch (NumberFormatException e) {
+            tampilkanError("Pilih data menu yang akan dihapus.");
+        }
+    }
+
+    private void pilihMenuDariTabel() {
+        int row = tblMenu.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+
+        txtIdMenu.setText(String.valueOf(tblMenu.getValueAt(row, 0)));
+        txtNamaMenu.setText(String.valueOf(tblMenu.getValueAt(row, 1)));
+        cmbKategori.setSelectedItem(String.valueOf(tblMenu.getValueAt(row, 2)));
+        txtHarga.setText(String.valueOf(tblMenu.getValueAt(row, 3)));
+        txtStok.setText(String.valueOf(tblMenu.getValueAt(row, 4)));
+
+        MenuItem menu = menuController.getMenuById(Integer.parseInt(txtIdMenu.getText()));
+        if (menu instanceof Makanan) {
+            txtInfoTambahan.setText(((Makanan) menu).getTingkatPedas());
+        } else if (menu instanceof Minuman) {
+            txtInfoTambahan.setText(((Minuman) menu).getUkuran());
+        } else {
+            txtInfoTambahan.setText("");
+        }
+    }
+
+    private void resetForm() {
+        txtIdMenu.setText("AUTO");
+        txtNamaMenu.setText("");
+        txtHarga.setText("");
+        txtStok.setText("");
+        txtInfoTambahan.setText("");
+        cmbKategori.setSelectedIndex(0);
+        tblMenu.clearSelection();
+        updatePlaceholderInfoTambahan();
+        txtNamaMenu.requestFocus();
+    }
+
+    private void updatePlaceholderInfoTambahan() {
+        if (txtInfoTambahan == null || cmbKategori.getSelectedItem() == null) {
+            return;
+        }
+        txtInfoTambahan.setToolTipText("Makanan".equals(getKategoriTerpilih())
+                ? "Isi tingkat pedas, contoh: Tidak Pedas, Sedang, Pedas"
+                : "Isi ukuran minuman, contoh: Small, Medium, Large");
+    }
+
+    private String getKategoriTerpilih() {
+        return String.valueOf(cmbKategori.getSelectedItem());
+    }
+
+    private String toDisplayKategori(String jenisMenu) {
+        if ("MAKANAN".equalsIgnoreCase(jenisMenu)) {
+            return "Makanan";
+        }
+        if ("MINUMAN".equalsIgnoreCase(jenisMenu)) {
+            return "Minuman";
+        }
+        return jenisMenu;
+    }
+
+    private void tampilkanError(String pesan) {
+        JOptionPane.showMessageDialog(this, pesan, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     /**
      * @param args the command line arguments
@@ -70,5 +555,31 @@ public class FormMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnSimpan;
+    private javax.swing.JButton btnUbah;
+    private javax.swing.JComboBox<String> cmbKategori;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenu menuMaster;
+    private javax.swing.JMenu menuRiwayat;
+    private javax.swing.JMenu menuTransaksi;
+    private javax.swing.JTable tblMenu;
+    private javax.swing.JTextField txtHarga;
+    private javax.swing.JTextField txtIdMenu;
+    private javax.swing.JTextField txtInfoTambahan;
+    private javax.swing.JTextField txtNamaMenu;
+    private javax.swing.JTextField txtStok;
     // End of variables declaration//GEN-END:variables
 }
