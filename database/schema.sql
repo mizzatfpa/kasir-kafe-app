@@ -7,8 +7,7 @@ CREATE TABLE IF NOT EXISTS menu (
     jenis_menu VARCHAR(20) NOT NULL,
     harga DOUBLE NOT NULL,
     stok INT NOT NULL,
-    tingkat_pedas VARCHAR(50),
-    ukuran VARCHAR(50)
+    UNIQUE KEY uk_menu_nama (nama_menu)
 );
 
 CREATE TABLE IF NOT EXISTS transaksi (

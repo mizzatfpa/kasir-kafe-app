@@ -9,17 +9,26 @@ import com.kasirapp.model.KeranjangItem;
 import com.kasirapp.model.MenuItem;
 import com.kasirapp.model.MetodePembayaran;
 import com.kasirapp.model.Transaksi;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -30,6 +39,15 @@ public class FormKasir extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormKasir.class.getName());
     private static final DecimalFormat ANGKA_FORMAT = new DecimalFormat("0.##");
     private static final Dimension UKURAN_FORM = new Dimension(1000, 740);
+    private static final Color WARNA_LATAR = new Color(250, 244, 235);
+    private static final Color WARNA_PANEL = new Color(255, 251, 245);
+    private static final Color WARNA_COKELAT_TUA = new Color(78, 43, 18);
+    private static final Color WARNA_BORDER = new Color(218, 190, 154);
+    private static final Color WARNA_TABEL_HEADER = new Color(242, 229, 209);
+    private static final Color WARNA_TABEL_ALT = new Color(252, 247, 240);
+    private static final Color WARNA_HIJAU = new Color(94, 119, 72);
+    private static final Color WARNA_ORANYE = new Color(196, 123, 44);
+    private static final Color WARNA_MERAH = new Color(168, 78, 57);
     private final KasirController kasirController = new KasirController();
 
     /**
@@ -373,7 +391,7 @@ public class FormKasir extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTambahKeranjangActionPerformed
 
     private void txtIdMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMenuActionPerformed
-        // TODO add your handling code here:
+        cariMenuDariInputId(true);
     }//GEN-LAST:event_txtIdMenuActionPerformed
 
     private void txtNamaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaMenuActionPerformed
@@ -420,7 +438,7 @@ public class FormKasir extends javax.swing.JFrame {
         txtTotal.setColumns(18);
         txtBayar.setColumns(18);
         txtKembalian.setColumns(18);
-        txtIdMenu.setEditable(false);
+        txtIdMenu.setEditable(true);
         txtNamaMenu.setEditable(false);
         txtTotal.setEditable(false);
         txtKembalian.setEditable(false);
@@ -446,10 +464,17 @@ public class FormKasir extends javax.swing.JFrame {
             }
         });
         aturLebarKolomTabel();
+        applyTemaKafe();
 
         tblDaftarMenu.getSelectionModel().addListSelectionListener(event -> {
             if (!event.getValueIsAdjusting()) {
                 pilihMenuDariTabel();
+            }
+        });
+        txtIdMenu.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                cariMenuDariInputId(true);
             }
         });
         txtBayar.getDocument().addDocumentListener(new DocumentListener() {
@@ -514,6 +539,114 @@ public class FormKasir extends javax.swing.JFrame {
         Dimension dimension = new Dimension(width, height);
         component.setPreferredSize(dimension);
         component.setMinimumSize(dimension);
+    }
+
+    private void applyTemaKafe() {
+        getContentPane().setBackground(WARNA_LATAR);
+        lblJudul.setForeground(WARNA_COKELAT_TUA);
+        lblJudul.setFont(new Font("Segoe UI", Font.BOLD, 26));
+
+        stylePanel(jPanel1, "Daftar Menu");
+        stylePanel(jPanel2, "Keranjang");
+        stylePanel(jPanel3, "Input Transaksi");
+        stylePanel(jPanel4, "Pembayaran");
+
+        jScrollPane1.getViewport().setBackground(Color.WHITE);
+        jScrollPane2.getViewport().setBackground(Color.WHITE);
+
+        warnaiLabel(jLabel1);
+        warnaiLabel(jLabel2);
+        warnaiLabel(jLabel3);
+        warnaiLabel(jLabel4);
+        warnaiLabel(jLabel5);
+        warnaiLabel(jLabel6);
+        warnaiLabel(jLabel7);
+
+        styleTextField(txtIdMenu);
+        styleTextField(txtNamaMenu);
+        styleTextField(txtJumlah);
+        styleTextField(txtTotal);
+        styleTextField(txtBayar);
+        styleTextField(txtKembalian);
+
+        cmbMetodePembayaran.setBackground(WARNA_PANEL);
+        cmbMetodePembayaran.setForeground(WARNA_COKELAT_TUA);
+
+        styleButton(btnTambahKeranjang, WARNA_HIJAU, Color.WHITE);
+        styleButton(btnHapusItem, WARNA_MERAH, Color.WHITE);
+        styleButton(btnTransaksiBaru, new Color(238, 225, 207), WARNA_COKELAT_TUA);
+        styleButton(btnBayar, WARNA_ORANYE, Color.WHITE);
+
+        jMenuBar1.setBackground(WARNA_COKELAT_TUA);
+        styleMenu(menuMaster);
+        styleMenu(menuTransaksi);
+        styleMenu(menuRiwayat);
+
+        styleTable(tblDaftarMenu);
+        styleTable(tblKeranjang);
+    }
+
+    private void stylePanel(javax.swing.JPanel panel, String title) {
+        panel.setBackground(WARNA_PANEL);
+        panel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(WARNA_BORDER),
+                title,
+                TitledBorder.DEFAULT_JUSTIFICATION,
+                TitledBorder.DEFAULT_POSITION,
+                new Font("Segoe UI", Font.BOLD, 12),
+                WARNA_COKELAT_TUA));
+    }
+
+    private void warnaiLabel(javax.swing.JLabel label) {
+        label.setForeground(WARNA_COKELAT_TUA);
+    }
+
+    private void styleTextField(javax.swing.JTextField textField) {
+        textField.setBackground(Color.WHITE);
+        textField.setForeground(new Color(42, 32, 24));
+        textField.setBorder(BorderFactory.createLineBorder(WARNA_BORDER));
+    }
+
+    private void styleButton(javax.swing.JButton button, Color background, Color foreground) {
+        button.setBackground(background);
+        button.setForeground(foreground);
+        button.setFocusPainted(false);
+        button.setOpaque(true);
+        button.setBorder(BorderFactory.createLineBorder(background.darker()));
+        button.setFont(new Font("Segoe UI", Font.BOLD, 12));
+    }
+
+    private void styleMenu(javax.swing.JMenu menu) {
+        menu.setOpaque(true);
+        menu.setBackground(WARNA_COKELAT_TUA);
+        menu.setForeground(Color.WHITE);
+        menu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+    }
+
+    private void styleTable(javax.swing.JTable table) {
+        JTableHeader header = table.getTableHeader();
+        header.setBackground(WARNA_TABEL_HEADER);
+        header.setForeground(WARNA_COKELAT_TUA);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        table.setBackground(Color.WHITE);
+        table.setForeground(new Color(42, 32, 24));
+        table.setGridColor(new Color(232, 218, 199));
+        table.setSelectionBackground(new Color(211, 226, 196));
+        table.setSelectionForeground(new Color(32, 42, 25));
+        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component component = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+                if (!isSelected) {
+                    component.setBackground(row % 2 == 0 ? Color.WHITE : WARNA_TABEL_ALT);
+                    component.setForeground(new Color(42, 32, 24));
+                }
+                setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
+                return component;
+            }
+        });
     }
 
     private void layoutPanelTabel(javax.swing.JPanel panel, javax.swing.JScrollPane scrollPane) {
@@ -751,8 +884,57 @@ public class FormKasir extends javax.swing.JFrame {
         txtJumlah.requestFocus();
     }
 
+    private boolean cariMenuDariInputId(boolean tampilkanPesan) {
+        String idText = txtIdMenu.getText().trim();
+        if (idText.isEmpty()) {
+            txtNamaMenu.setText("");
+            return false;
+        }
+
+        try {
+            int idMenu = Integer.parseInt(idText);
+            for (MenuItem menu : kasirController.getDaftarMenu()) {
+                if (menu.getIdMenu() == idMenu) {
+                    txtNamaMenu.setText(menu.getNamaMenu());
+                    if (txtJumlah.getText().trim().isEmpty()) {
+                        txtJumlah.setText("1");
+                    }
+                    pilihBarisMenu(idMenu);
+                    txtJumlah.requestFocus();
+                    return true;
+                }
+            }
+
+            txtNamaMenu.setText("");
+            if (tampilkanPesan) {
+                tampilkanError("Menu dengan ID " + idMenu + " tidak ditemukan.");
+            }
+            return false;
+        } catch (NumberFormatException e) {
+            txtNamaMenu.setText("");
+            if (tampilkanPesan) {
+                tampilkanError("ID menu harus berupa angka.");
+            }
+            return false;
+        }
+    }
+
+    private void pilihBarisMenu(int idMenu) {
+        for (int i = 0; i < tblDaftarMenu.getRowCount(); i++) {
+            int idTabel = Integer.parseInt(String.valueOf(tblDaftarMenu.getValueAt(i, 0)));
+            if (idTabel == idMenu) {
+                tblDaftarMenu.setRowSelectionInterval(i, i);
+                tblDaftarMenu.scrollRectToVisible(tblDaftarMenu.getCellRect(i, 0, true));
+                return;
+            }
+        }
+    }
+
     private void tambahKeKeranjang() {
         try {
+            if (!cariMenuDariInputId(true)) {
+                return;
+            }
             int idMenu = Integer.parseInt(txtIdMenu.getText().trim());
             int jumlah = Integer.parseInt(txtJumlah.getText().trim());
 

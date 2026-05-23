@@ -22,35 +22,35 @@ public class MenuService {
         return menuDAO.findById(idMenu);
     }
 
-    public void tambahMakanan(String namaMenu, double harga, int stok, String tingkatPedas) {
+    public void tambahMakanan(String namaMenu, double harga, int stok) {
         validasiMenuDasar(namaMenu, harga, stok);
-        ValidationUtil.validateNotEmpty(tingkatPedas, "Tingkat pedas");
-        menuDAO.insert(new Makanan(0, namaMenu.trim(), harga, stok, tingkatPedas.trim()));
+        validasiNamaMenuBelumDipakai(namaMenu, 0);
+        menuDAO.insert(new Makanan(0, namaMenu.trim(), harga, stok));
     }
 
-    public void tambahMinuman(String namaMenu, double harga, int stok, String ukuran) {
+    public void tambahMinuman(String namaMenu, double harga, int stok) {
         validasiMenuDasar(namaMenu, harga, stok);
-        ValidationUtil.validateNotEmpty(ukuran, "Ukuran");
-        menuDAO.insert(new Minuman(0, namaMenu.trim(), harga, stok, ukuran.trim()));
+        validasiNamaMenuBelumDipakai(namaMenu, 0);
+        menuDAO.insert(new Minuman(0, namaMenu.trim(), harga, stok));
     }
 
-    public void ubahMakanan(int idMenu, String namaMenu, double harga, int stok, String tingkatPedas) {
+    public void ubahMakanan(int idMenu, String namaMenu, double harga, int stok) {
         validasiIdMenu(idMenu);
         validasiMenuDasar(namaMenu, harga, stok);
-        ValidationUtil.validateNotEmpty(tingkatPedas, "Tingkat pedas");
+        validasiNamaMenuBelumDipakai(namaMenu, idMenu);
 
-        boolean berhasil = menuDAO.update(new Makanan(idMenu, namaMenu.trim(), harga, stok, tingkatPedas.trim()));
+        boolean berhasil = menuDAO.update(new Makanan(idMenu, namaMenu.trim(), harga, stok));
         if (!berhasil) {
             throw new IllegalArgumentException("Menu tidak ditemukan.");
         }
     }
 
-    public void ubahMinuman(int idMenu, String namaMenu, double harga, int stok, String ukuran) {
+    public void ubahMinuman(int idMenu, String namaMenu, double harga, int stok) {
         validasiIdMenu(idMenu);
         validasiMenuDasar(namaMenu, harga, stok);
-        ValidationUtil.validateNotEmpty(ukuran, "Ukuran");
+        validasiNamaMenuBelumDipakai(namaMenu, idMenu);
 
-        boolean berhasil = menuDAO.update(new Minuman(idMenu, namaMenu.trim(), harga, stok, ukuran.trim()));
+        boolean berhasil = menuDAO.update(new Minuman(idMenu, namaMenu.trim(), harga, stok));
         if (!berhasil) {
             throw new IllegalArgumentException("Menu tidak ditemukan.");
         }
@@ -73,6 +73,13 @@ public class MenuService {
     private void validasiIdMenu(int idMenu) {
         if (idMenu <= 0) {
             throw new IllegalArgumentException("ID menu tidak valid.");
+        }
+    }
+
+    private void validasiNamaMenuBelumDipakai(String namaMenu, int idMenuSaatIni) {
+        MenuItem menuDenganNamaSama = menuDAO.findByNama(namaMenu);
+        if (menuDenganNamaSama != null && menuDenganNamaSama.getIdMenu() != idMenuSaatIni) {
+            throw new IllegalArgumentException("Nama menu sudah digunakan.");
         }
     }
 }

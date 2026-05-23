@@ -5,17 +5,22 @@
 package com.kasirapp.view;
 
 import com.kasirapp.controller.MenuController;
-import com.kasirapp.model.Makanan;
 import com.kasirapp.model.MenuItem;
-import com.kasirapp.model.Minuman;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -25,6 +30,15 @@ public class FormMenu extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormMenu.class.getName());
     private static final Dimension UKURAN_FORM = new Dimension(1000, 740);
+    private static final Color WARNA_LATAR = new Color(250, 244, 235);
+    private static final Color WARNA_PANEL = new Color(255, 251, 245);
+    private static final Color WARNA_COKELAT_TUA = new Color(78, 43, 18);
+    private static final Color WARNA_BORDER = new Color(218, 190, 154);
+    private static final Color WARNA_TABEL_HEADER = new Color(242, 229, 209);
+    private static final Color WARNA_TABEL_ALT = new Color(252, 247, 240);
+    private static final Color WARNA_HIJAU = new Color(94, 119, 72);
+    private static final Color WARNA_ORANYE = new Color(196, 123, 44);
+    private static final Color WARNA_MERAH = new Color(168, 78, 57);
     private final MenuController menuController = new MenuController();
 
     /**
@@ -62,8 +76,6 @@ public class FormMenu extends javax.swing.JFrame {
         btnHapus = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        txtInfoTambahan = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMenu = new javax.swing.JTable();
@@ -114,10 +126,6 @@ public class FormMenu extends javax.swing.JFrame {
         btnReset.setText("Reset");
         btnReset.addActionListener(this::btnResetActionPerformed);
 
-        jLabel8.setText("Keterangan");
-
-        txtInfoTambahan.addActionListener(this::txtInfoTambahanActionPerformed);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,11 +145,10 @@ public class FormMenu extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,9 +163,8 @@ public class FormMenu extends javax.swing.JFrame {
                                 .addGap(28, 28, 28)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(txtInfoTambahan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,12 +186,8 @@ public class FormMenu extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(txtInfoTambahan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan)
                     .addComponent(btnUbah)
@@ -198,13 +200,13 @@ public class FormMenu extends javax.swing.JFrame {
 
         tblMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nama Menu", "Kategori", "Harga", "Stok"
+                "ID", "Nama Menu", "Kategori", "Harga", "Stok", "Satuan"
             }
         ));
         jScrollPane2.setViewportView(tblMenu);
@@ -262,7 +264,7 @@ public class FormMenu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(12, 12, 12)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -299,25 +301,21 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void cmbKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKategoriActionPerformed
-        updateLabelInfoTambahan();
+        // Kategori digunakan untuk menentukan object Makanan atau Minuman.
     }//GEN-LAST:event_cmbKategoriActionPerformed
-
-    private void txtInfoTambahanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInfoTambahanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInfoTambahanActionPerformed
 
     private void setupForm() {
         applyLayoutRapi();
+        applyTemaKafe();
         txtIdMenu.setColumns(12);
         txtNamaMenu.setColumns(24);
         txtHarga.setColumns(14);
         txtStok.setColumns(14);
-        txtInfoTambahan.setColumns(24);
         cmbKategori.setModel(new DefaultComboBoxModel<>(new String[] {"Makanan", "Minuman"}));
         tblMenu.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblMenu.setModel(new DefaultTableModel(
                 new Object[][] {},
-                new String[] {"ID", "Nama Menu", "Kategori", "Harga", "Stok", "Keterangan"}) {
+                new String[] {"ID", "Nama Menu", "Kategori", "Harga", "Stok", "Satuan"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -341,13 +339,12 @@ public class FormMenu extends javax.swing.JFrame {
         setPreferredSize(UKURAN_FORM);
         getContentPane().setPreferredSize(new Dimension(980, 680));
 
-        setUkuranKomponen(jPanel1, 940, 245);
-        setUkuranKomponen(jPanel2, 940, 300);
-        setUkuranKomponen(jScrollPane2, 900, 220);
+        setUkuranKomponen(jPanel1, 940, 215);
+        setUkuranKomponen(jPanel2, 940, 330);
+        setUkuranKomponen(jScrollPane2, 900, 250);
         setUkuranKomponen(txtIdMenu, 190, 28);
         setUkuranKomponen(txtNamaMenu, 275, 28);
         setUkuranKomponen(cmbKategori, 120, 28);
-        setUkuranKomponen(txtInfoTambahan, 275, 28);
         setUkuranKomponen(txtHarga, 190, 28);
         setUkuranKomponen(txtStok, 190, 28);
         setUkuranKomponen(btnSimpan, 95, 32);
@@ -367,6 +364,103 @@ public class FormMenu extends javax.swing.JFrame {
         component.setMinimumSize(dimension);
     }
 
+    private void applyTemaKafe() {
+        getContentPane().setBackground(WARNA_LATAR);
+        jPanel1.setBackground(WARNA_PANEL);
+        jPanel2.setBackground(WARNA_PANEL);
+        jScrollPane2.getViewport().setBackground(Color.WHITE);
+
+        jLabel1.setForeground(WARNA_COKELAT_TUA);
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        warnaiLabel(jLabel2);
+        warnaiLabel(jLabel3);
+        warnaiLabel(jLabel4);
+        warnaiLabel(jLabel5);
+        warnaiLabel(jLabel6);
+
+        jPanel1.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(WARNA_BORDER),
+                "Input Menu",
+                TitledBorder.DEFAULT_JUSTIFICATION,
+                TitledBorder.DEFAULT_POSITION,
+                new Font("Segoe UI", Font.BOLD, 12),
+                WARNA_COKELAT_TUA));
+        jPanel2.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(WARNA_BORDER),
+                "Daftar Menu",
+                TitledBorder.DEFAULT_JUSTIFICATION,
+                TitledBorder.DEFAULT_POSITION,
+                new Font("Segoe UI", Font.BOLD, 12),
+                WARNA_COKELAT_TUA));
+
+        styleTextField(txtIdMenu);
+        styleTextField(txtNamaMenu);
+        styleTextField(txtHarga);
+        styleTextField(txtStok);
+        cmbKategori.setBackground(WARNA_PANEL);
+        cmbKategori.setForeground(WARNA_COKELAT_TUA);
+
+        styleButton(btnSimpan, WARNA_HIJAU, Color.WHITE);
+        styleButton(btnUbah, WARNA_ORANYE, Color.WHITE);
+        styleButton(btnHapus, WARNA_MERAH, Color.WHITE);
+        styleButton(btnReset, new Color(238, 225, 207), WARNA_COKELAT_TUA);
+
+        jMenuBar1.setBackground(WARNA_COKELAT_TUA);
+        styleMenu(menuMaster);
+        styleMenu(menuTransaksi);
+        styleMenu(menuRiwayat);
+
+        JTableHeader header = tblMenu.getTableHeader();
+        header.setBackground(WARNA_TABEL_HEADER);
+        header.setForeground(WARNA_COKELAT_TUA);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tblMenu.setBackground(Color.WHITE);
+        tblMenu.setForeground(new Color(42, 32, 24));
+        tblMenu.setGridColor(new Color(232, 218, 199));
+        tblMenu.setSelectionBackground(new Color(211, 226, 196));
+        tblMenu.setSelectionForeground(new Color(32, 42, 25));
+        tblMenu.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component component = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+                if (!isSelected) {
+                    component.setBackground(row % 2 == 0 ? Color.WHITE : WARNA_TABEL_ALT);
+                    component.setForeground(new Color(42, 32, 24));
+                }
+                setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
+                return component;
+            }
+        });
+    }
+
+    private void warnaiLabel(javax.swing.JLabel label) {
+        label.setForeground(WARNA_COKELAT_TUA);
+    }
+
+    private void styleTextField(javax.swing.JTextField textField) {
+        textField.setBackground(Color.WHITE);
+        textField.setForeground(new Color(42, 32, 24));
+        textField.setBorder(BorderFactory.createLineBorder(WARNA_BORDER));
+    }
+
+    private void styleButton(javax.swing.JButton button, Color background, Color foreground) {
+        button.setBackground(background);
+        button.setForeground(foreground);
+        button.setFocusPainted(false);
+        button.setOpaque(true);
+        button.setBorder(BorderFactory.createLineBorder(background.darker()));
+        button.setFont(new Font("Segoe UI", Font.BOLD, 12));
+    }
+
+    private void styleMenu(javax.swing.JMenu menu) {
+        menu.setOpaque(true);
+        menu.setBackground(WARNA_COKELAT_TUA);
+        menu.setForeground(Color.WHITE);
+        menu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+    }
+
     private void layoutPanelInputMenu() {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(layout);
@@ -378,14 +472,12 @@ public class FormMenu extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(8)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtIdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtInfoTambahan, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(105)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -425,17 +517,13 @@ public class FormMenu extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel4)
                                         .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel8)
-                                        .addComponent(txtInfoTambahan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18)
+                                .addGap(28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(28, Short.MAX_VALUE)));
+                                .addContainerGap(31, Short.MAX_VALUE)));
     }
 
     private void layoutPanelDaftarMenu() {
@@ -452,7 +540,7 @@ public class FormMenu extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                                 .addContainerGap()));
     }
 
@@ -475,9 +563,9 @@ public class FormMenu extends javax.swing.JFrame {
                                 .addGap(32)
                                 .addComponent(jLabel1)
                                 .addGap(14)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(40, Short.MAX_VALUE)));
     }
 
@@ -488,7 +576,7 @@ public class FormMenu extends javax.swing.JFrame {
         tblMenu.getColumnModel().getColumn(2).setPreferredWidth(120);
         tblMenu.getColumnModel().getColumn(3).setPreferredWidth(120);
         tblMenu.getColumnModel().getColumn(4).setPreferredWidth(90);
-        tblMenu.getColumnModel().getColumn(5).setPreferredWidth(220);
+        tblMenu.getColumnModel().getColumn(5).setPreferredWidth(90);
     }
 
     private void setupNavigasi() {
@@ -526,7 +614,7 @@ public class FormMenu extends javax.swing.JFrame {
                 toDisplayKategori(menu.getJenisMenu()),
                 menu.getHarga(),
                 menu.getStok(),
-                menu.getInfoTambahan()
+                menu.getSatuan()
             });
         }
     }
@@ -536,14 +624,13 @@ public class FormMenu extends javax.swing.JFrame {
             String namaMenu = txtNamaMenu.getText();
             double harga = Double.parseDouble(txtHarga.getText().trim());
             int stok = Integer.parseInt(txtStok.getText().trim());
-            String infoTambahan = txtInfoTambahan.getText();
             String kategori = getKategoriTerpilih();
 
             boolean berhasil;
             if ("Makanan".equals(kategori)) {
-                berhasil = menuController.tambahMakanan(namaMenu, harga, stok, infoTambahan);
+                berhasil = menuController.tambahMakanan(namaMenu, harga, stok);
             } else {
-                berhasil = menuController.tambahMinuman(namaMenu, harga, stok, infoTambahan);
+                berhasil = menuController.tambahMinuman(namaMenu, harga, stok);
             }
 
             if (berhasil) {
@@ -564,14 +651,13 @@ public class FormMenu extends javax.swing.JFrame {
             String namaMenu = txtNamaMenu.getText();
             double harga = Double.parseDouble(txtHarga.getText().trim());
             int stok = Integer.parseInt(txtStok.getText().trim());
-            String infoTambahan = txtInfoTambahan.getText();
             String kategori = getKategoriTerpilih();
 
             boolean berhasil;
             if ("Makanan".equals(kategori)) {
-                berhasil = menuController.ubahMakanan(idMenu, namaMenu, harga, stok, infoTambahan);
+                berhasil = menuController.ubahMakanan(idMenu, namaMenu, harga, stok);
             } else {
-                berhasil = menuController.ubahMinuman(idMenu, namaMenu, harga, stok, infoTambahan);
+                berhasil = menuController.ubahMinuman(idMenu, namaMenu, harga, stok);
             }
 
             if (berhasil) {
@@ -622,15 +708,6 @@ public class FormMenu extends javax.swing.JFrame {
         cmbKategori.setSelectedItem(String.valueOf(tblMenu.getValueAt(row, 2)));
         txtHarga.setText(String.valueOf(tblMenu.getValueAt(row, 3)));
         txtStok.setText(String.valueOf(tblMenu.getValueAt(row, 4)));
-
-        MenuItem menu = menuController.getMenuById(Integer.parseInt(txtIdMenu.getText()));
-        if (menu instanceof Makanan) {
-            txtInfoTambahan.setText(((Makanan) menu).getTingkatPedas());
-        } else if (menu instanceof Minuman) {
-            txtInfoTambahan.setText(((Minuman) menu).getUkuran());
-        } else {
-            txtInfoTambahan.setText("");
-        }
     }
 
     private void resetForm() {
@@ -638,24 +715,9 @@ public class FormMenu extends javax.swing.JFrame {
         txtNamaMenu.setText("");
         txtHarga.setText("");
         txtStok.setText("");
-        txtInfoTambahan.setText("");
         cmbKategori.setSelectedIndex(0);
         tblMenu.clearSelection();
-        updateLabelInfoTambahan();
         txtNamaMenu.requestFocus();
-    }
-
-    private void updateLabelInfoTambahan() {
-        if (txtInfoTambahan == null || cmbKategori.getSelectedItem() == null) {
-            return;
-        }
-        if ("Makanan".equals(getKategoriTerpilih())) {
-            jLabel8.setText("Tingkat Pedas");
-            txtInfoTambahan.setToolTipText("Contoh: Tidak Pedas, Sedang, Pedas");
-        } else {
-            jLabel8.setText("Ukuran");
-            txtInfoTambahan.setToolTipText("Contoh: Small, Medium, Large, Dingin, Panas");
-        }
     }
 
     private String getKategoriTerpilih() {
@@ -714,7 +776,6 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -725,7 +786,6 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JTable tblMenu;
     private javax.swing.JTextField txtHarga;
     private javax.swing.JTextField txtIdMenu;
-    private javax.swing.JTextField txtInfoTambahan;
     private javax.swing.JTextField txtNamaMenu;
     private javax.swing.JTextField txtStok;
     // End of variables declaration//GEN-END:variables

@@ -8,16 +8,23 @@ import com.kasirapp.controller.TransaksiController;
 import com.kasirapp.model.DetailTransaksi;
 import com.kasirapp.model.Transaksi;
 import com.kasirapp.util.FormatUtil;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -28,6 +35,14 @@ public class FormRiwayatTransaksi extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormRiwayatTransaksi.class.getName());
     private static final DateTimeFormatter FORMAT_TANGGAL_INPUT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final Dimension UKURAN_FORM = new Dimension(1000, 740);
+    private static final Color WARNA_LATAR = new Color(250, 244, 235);
+    private static final Color WARNA_PANEL = new Color(255, 251, 245);
+    private static final Color WARNA_COKELAT_TUA = new Color(78, 43, 18);
+    private static final Color WARNA_BORDER = new Color(218, 190, 154);
+    private static final Color WARNA_TABEL_HEADER = new Color(242, 229, 209);
+    private static final Color WARNA_TABEL_ALT = new Color(252, 247, 240);
+    private static final Color WARNA_HIJAU = new Color(94, 119, 72);
+    private static final Color WARNA_ORANYE = new Color(196, 123, 44);
     private final TransaksiController transaksiController = new TransaksiController();
 
     /**
@@ -274,6 +289,7 @@ public class FormRiwayatTransaksi extends javax.swing.JFrame {
             }
         });
         aturLebarKolomTabel();
+        applyTemaKafe();
 
         tblDaftarTransaksi.getSelectionModel().addListSelectionListener(event -> {
             if (!event.getValueIsAdjusting()) {
@@ -313,6 +329,99 @@ public class FormRiwayatTransaksi extends javax.swing.JFrame {
         Dimension dimension = new Dimension(width, height);
         component.setPreferredSize(dimension);
         component.setMinimumSize(dimension);
+    }
+
+    private void applyTemaKafe() {
+        getContentPane().setBackground(WARNA_LATAR);
+        jLabel1.setForeground(WARNA_COKELAT_TUA);
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 26));
+
+        stylePanel(jPanel1, "Pencarian");
+        stylePanel(jPanel2, "Daftar Transaksi");
+        stylePanel(jPanel3, "Detail Transaksi");
+
+        jScrollPane1.getViewport().setBackground(Color.WHITE);
+        jScrollPane2.getViewport().setBackground(Color.WHITE);
+
+        warnaiLabel(jLabel2);
+        warnaiLabel(jLabel3);
+
+        styleTextField(txtKodeTransaksi);
+        styleTextField(txtTanggal);
+
+        styleButton(btnCari, WARNA_HIJAU, Color.WHITE);
+        styleButton(btnTampilkanSemua, WARNA_ORANYE, Color.WHITE);
+
+        jMenuBar1.setBackground(WARNA_COKELAT_TUA);
+        styleMenu(menuMaster);
+        styleMenu(menuTransaksi);
+        styleMenu(menuRiwayat);
+
+        styleTable(tblDaftarTransaksi);
+        styleTable(tblDetailTransaksi);
+    }
+
+    private void stylePanel(javax.swing.JPanel panel, String title) {
+        panel.setBackground(WARNA_PANEL);
+        panel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(WARNA_BORDER),
+                title,
+                TitledBorder.DEFAULT_JUSTIFICATION,
+                TitledBorder.DEFAULT_POSITION,
+                new Font("Segoe UI", Font.BOLD, 12),
+                WARNA_COKELAT_TUA));
+    }
+
+    private void warnaiLabel(javax.swing.JLabel label) {
+        label.setForeground(WARNA_COKELAT_TUA);
+    }
+
+    private void styleTextField(javax.swing.JTextField textField) {
+        textField.setBackground(Color.WHITE);
+        textField.setForeground(new Color(42, 32, 24));
+        textField.setBorder(BorderFactory.createLineBorder(WARNA_BORDER));
+    }
+
+    private void styleButton(javax.swing.JButton button, Color background, Color foreground) {
+        button.setBackground(background);
+        button.setForeground(foreground);
+        button.setFocusPainted(false);
+        button.setOpaque(true);
+        button.setBorder(BorderFactory.createLineBorder(background.darker()));
+        button.setFont(new Font("Segoe UI", Font.BOLD, 12));
+    }
+
+    private void styleMenu(javax.swing.JMenu menu) {
+        menu.setOpaque(true);
+        menu.setBackground(WARNA_COKELAT_TUA);
+        menu.setForeground(Color.WHITE);
+        menu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+    }
+
+    private void styleTable(javax.swing.JTable table) {
+        JTableHeader header = table.getTableHeader();
+        header.setBackground(WARNA_TABEL_HEADER);
+        header.setForeground(WARNA_COKELAT_TUA);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        table.setBackground(Color.WHITE);
+        table.setForeground(new Color(42, 32, 24));
+        table.setGridColor(new Color(232, 218, 199));
+        table.setSelectionBackground(new Color(211, 226, 196));
+        table.setSelectionForeground(new Color(32, 42, 25));
+        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component component = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+                if (!isSelected) {
+                    component.setBackground(row % 2 == 0 ? Color.WHITE : WARNA_TABEL_ALT);
+                    component.setForeground(new Color(42, 32, 24));
+                }
+                setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
+                return component;
+            }
+        });
     }
 
     private void layoutPanelPencarian() {

@@ -37,10 +37,11 @@ public class DatabaseConnection {
                     + "nama_menu VARCHAR(100) NOT NULL,"
                     + "jenis_menu VARCHAR(20) NOT NULL,"
                     + "harga DOUBLE NOT NULL,"
-                    + "stok INT NOT NULL,"
-                    + "tingkat_pedas VARCHAR(50),"
-                    + "ukuran VARCHAR(50)"
+                    + "stok INT NOT NULL"
                     + ")");
+            hapusKolomJikaAda(statement, "tingkat_pedas");
+            hapusKolomJikaAda(statement, "ukuran");
+            tambahUniqueNamaMenu(statement);
             statement.executeUpdate(
                     "CREATE TABLE IF NOT EXISTS transaksi ("
                     + "id_transaksi INT AUTO_INCREMENT PRIMARY KEY,"
@@ -88,6 +89,26 @@ public class DatabaseConnection {
             }
         } catch (SQLException e) {
             return e.getMessage();
+        }
+    }
+
+    private static void tambahUniqueNamaMenu(Statement statement) throws SQLException {
+        try {
+            statement.executeUpdate("ALTER TABLE menu ADD UNIQUE KEY uk_menu_nama (nama_menu)");
+        } catch (SQLException e) {
+            if (e.getErrorCode() != 1061 && e.getErrorCode() != 1062) {
+                throw e;
+            }
+        }
+    }
+
+    private static void hapusKolomJikaAda(Statement statement, String namaKolom) throws SQLException {
+        try {
+            statement.executeUpdate("ALTER TABLE menu DROP COLUMN " + namaKolom);
+        } catch (SQLException e) {
+            if (e.getErrorCode() != 1091) {
+                throw e;
+            }
         }
     }
 }

@@ -50,7 +50,7 @@ public abstract class MenuItem {
 
     public abstract String getJenisMenu();
 
-    public abstract String getInfoTambahan();
+    public abstract String getSatuan();
 
     public double hitungSubtotal(int jumlah) {
         return harga * jumlah;

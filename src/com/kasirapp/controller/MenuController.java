@@ -33,10 +33,10 @@ public class MenuController {
         }
     }
 
-    public boolean tambahMakanan(String namaMenu, double harga, int stok, String tingkatPedas) {
+    public boolean tambahMakanan(String namaMenu, double harga, int stok) {
         try {
             clearError();
-            menuService.tambahMakanan(namaMenu, harga, stok, tingkatPedas);
+            menuService.tambahMakanan(namaMenu, harga, stok);
             return true;
         } catch (Exception e) {
             setError(e);
@@ -44,10 +44,10 @@ public class MenuController {
         }
     }
 
-    public boolean tambahMinuman(String namaMenu, double harga, int stok, String ukuran) {
+    public boolean tambahMinuman(String namaMenu, double harga, int stok) {
         try {
             clearError();
-            menuService.tambahMinuman(namaMenu, harga, stok, ukuran);
+            menuService.tambahMinuman(namaMenu, harga, stok);
             return true;
         } catch (Exception e) {
             setError(e);
@@ -55,10 +55,10 @@ public class MenuController {
         }
     }
 
-    public boolean ubahMakanan(int idMenu, String namaMenu, double harga, int stok, String tingkatPedas) {
+    public boolean ubahMakanan(int idMenu, String namaMenu, double harga, int stok) {
         try {
             clearError();
-            menuService.ubahMakanan(idMenu, namaMenu, harga, stok, tingkatPedas);
+            menuService.ubahMakanan(idMenu, namaMenu, harga, stok);
             return true;
         } catch (Exception e) {
             setError(e);
@@ -66,10 +66,10 @@ public class MenuController {
         }
     }
 
-    public boolean ubahMinuman(int idMenu, String namaMenu, double harga, int stok, String ukuran) {
+    public boolean ubahMinuman(int idMenu, String namaMenu, double harga, int stok) {
         try {
             clearError();
-            menuService.ubahMinuman(idMenu, namaMenu, harga, stok, ukuran);
+            menuService.ubahMinuman(idMenu, namaMenu, harga, stok);
             return true;
         } catch (Exception e) {
             setError(e);

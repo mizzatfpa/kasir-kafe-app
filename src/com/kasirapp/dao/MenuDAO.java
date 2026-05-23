@@ -45,8 +45,25 @@ public class MenuDAO {
         }
     }
 
+    public MenuItem findByNama(String namaMenu) {
+        String sql = "SELECT * FROM menu WHERE LOWER(nama_menu) = LOWER(?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, namaMenu.trim());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSet(rs);
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Gagal mencari nama menu: " + e.getMessage(), e);
+        }
+    }
+
     public boolean insert(MenuItem menu) {
-        String sql = "INSERT INTO menu (nama_menu, jenis_menu, harga, stok, tingkat_pedas, ukuran) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO menu (nama_menu, jenis_menu, harga, stok) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -58,12 +75,12 @@ public class MenuDAO {
     }
 
     public boolean update(MenuItem menu) {
-        String sql = "UPDATE menu SET nama_menu = ?, jenis_menu = ?, harga = ?, stok = ?, tingkat_pedas = ?, ukuran = ? WHERE id_menu = ?";
+        String sql = "UPDATE menu SET nama_menu = ?, jenis_menu = ?, harga = ?, stok = ? WHERE id_menu = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             fillStatement(ps, menu);
-            ps.setInt(7, menu.getIdMenu());
+            ps.setInt(5, menu.getIdMenu());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Gagal mengubah menu: " + e.getMessage(), e);
@@ -101,10 +118,10 @@ public class MenuDAO {
         int stok = rs.getInt("stok");
 
         if ("MAKANAN".equalsIgnoreCase(jenisMenu)) {
-            return new Makanan(idMenu, namaMenu, harga, stok, rs.getString("tingkat_pedas"));
+            return new Makanan(idMenu, namaMenu, harga, stok);
         }
         if ("MINUMAN".equalsIgnoreCase(jenisMenu)) {
-            return new Minuman(idMenu, namaMenu, harga, stok, rs.getString("ukuran"));
+            return new Minuman(idMenu, namaMenu, harga, stok);
         }
         throw new SQLException("Jenis menu tidak dikenal: " + jenisMenu);
     }
@@ -114,17 +131,5 @@ public class MenuDAO {
         ps.setString(2, menu.getJenisMenu());
         ps.setDouble(3, menu.getHarga());
         ps.setInt(4, menu.getStok());
-
-        if (menu instanceof Makanan) {
-            Makanan makanan = (Makanan) menu;
-            ps.setString(5, makanan.getTingkatPedas());
-            ps.setString(6, null);
-        } else if (menu instanceof Minuman) {
-            Minuman minuman = (Minuman) menu;
-            ps.setString(5, null);
-            ps.setString(6, minuman.getUkuran());
-        } else {
-            throw new SQLException("Tipe object menu tidak dikenal.");
-        }
     }
 }
