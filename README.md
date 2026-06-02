@@ -4,8 +4,6 @@ Aplikasi Kasir Kafe adalah aplikasi desktop Java Swing untuk mengelola menu kafe
 
 ## Tampilan Aplikasi
 
-> Simpan tiga screenshot aplikasi pada folder `docs/screenshots` dengan nama file sesuai path di bawah agar gambar tampil di README.
-
 ### Form Menu
 
 ![Form Menu - Aplikasi Kasir](docs/screenshots/form-menu.png)
@@ -62,7 +60,7 @@ src/com/kasirapp
 - **Inheritance**: `Makanan` dan `Minuman` mewarisi abstract class `MenuItem`.
 - **Abstraction**: `MenuItem` mendefinisikan method abstract `getJenisMenu()` dan `getSatuan()`.
 - **Polymorphism**: daftar menu bertipe `List<MenuItem>` dapat berisi objek `Makanan` atau `Minuman`.
-- **Composition**: `Transaksi` menyimpan kumpulan `DetailTransaksi`, sedangkan `KeranjangItem` menyimpan `MenuItem`.
+- **Composition**: `Transaksi` menyimpan kumpulan `DetailTransaksi`.
 - **Modularization**: `view`, `controller`, `service`, dan `dao` dipisahkan agar kode lebih mudah dipelihara dan diskalakan.
 
 ## Database
